@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const url = "http://localhost:5000/posts";
+const url = "https://fake-tasks.herokuapp.com/posts";
 export const getPosts = createAsyncThunk(
   "posts/getPosts",
   async (_, ThunkApi) => {
