@@ -13,7 +13,9 @@ const Header = () => {
             Home
           </Link>
           <Nav className="ms-auto">
-            <Link to="/counter" className="nav-link" style={{fontSize:"20px"}}>counter</Link>
+            <Link to="/" className="nav-link" style={{fontSize:"18px"}}>Post</Link>
+            <Link to="/counter" className="nav-link" style={{fontSize:"18px"}}>Counter</Link>
+            <Link to="/movies" className="nav-link" style={{fontSize:"18px"}}>Get</Link>
           </Nav>
         </Container>
       </Navbar>
