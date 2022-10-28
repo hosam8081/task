@@ -1,10 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = `https://api.themoviedb.org/3/movie/popular?api_key=22f8cb7ddbbef2f2669e89e4b118d04e&language=en-US&page=1`
+const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_ACCESS_KEY}&language=en-US&page=1`;
 const initialState = {
+  loading:true,
   movies: [],
-}
+};
 
 export const getMovies = createAsyncThunk(
   "movies/getMovies",
@@ -15,11 +16,10 @@ export const getMovies = createAsyncThunk(
 );
 
 export const moviesSlice = createSlice({
-  name: 'movies',
+  name: "movies",
   initialState,
-  reducers: {
-  },
-  extraReducers:{
+  reducers: {},
+  extraReducers: {
     [getMovies.pending]: (state) => {
       state.loading = true;
     },
@@ -30,8 +30,7 @@ export const moviesSlice = createSlice({
     [getMovies.rejected]: (state) => {
       state.loading = false;
     },
-  }
-})
+  },
+});
 
-
-export default moviesSlice.reducer
+export default moviesSlice.reducer;

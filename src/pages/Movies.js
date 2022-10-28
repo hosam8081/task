@@ -4,13 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Movie from "../components/Movie";
 import { getMovies } from "../slice/moviesSlice";
 import { Container, Row } from "react-bootstrap";
+import Loading from "../components/Loading";
 const Movies = () => {
   const dispatch = useDispatch();
-  const { movies } = useSelector((state) => state.movies);
-  console.log(movies);
+  const { movies, loading } = useSelector((state) => state.movies);
   useEffect(() => {
     dispatch(getMovies());
-  });
+  }, []);
+  if (loading) {
+    return <Loading />
+  }
   return (
     <div>
       <Container>
