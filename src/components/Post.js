@@ -1,7 +1,7 @@
 import React from 'react'
 const Post = ({title}) => {
   return (
-    <div>{title}</div>
+    <div className="mb-2 hvr-gray px-2">{title}</div>
   )
 }
 

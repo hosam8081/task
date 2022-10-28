@@ -5,7 +5,6 @@ import Loading from "../components/Loading";
 
 const Posts = () => {
   const { posts, loading } = useSelector((state) => state.posts);
-  console.log(posts)
   if (loading) {
     return <Loading />
   }

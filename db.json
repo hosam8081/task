@@ -2,31 +2,15 @@
   "posts": [
     {
       "id": 1,
-      "title": "you can do it"
+      "title": "this is get"
     },
     {
-      "id": 2,
-      "title": "John"
+      "title": "you can go it ",
+      "id": 2
     },
     {
-      "id": 3,
-      "title": "Robert"
-    },
-    {
-      "id": 4,
-      "title": "Mani"
-    },
-    {
-      "title": "a",
-      "id": 5
-    },
-    {
-      "title": "s",
-      "id": 6
-    },
-    {
-      "title": "a",
-      "id": 7
+      "title": "dd",
+      "id": 3
     }
   ]
 }
