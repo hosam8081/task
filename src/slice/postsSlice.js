@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+
 const url = "https://fake-tasks.herokuapp.com/posts";
+
+// Fetch All Posts
 export const getPosts = createAsyncThunk(
   "posts/getPosts",
   async (_, ThunkApi) => {
@@ -9,6 +12,7 @@ export const getPosts = createAsyncThunk(
   }
 );
 
+// Post 
 export const addPost = createAsyncThunk(
   "posts/addPost",
   async (post, ThunkApi) => {
@@ -20,6 +24,8 @@ export const addPost = createAsyncThunk(
     return res.data;
   }
 );
+
+// initalState
 const initialState = {
   loading: true,
   singleLoaing:"true",
@@ -27,6 +33,7 @@ const initialState = {
   text: "",
 };
 
+// Create Slice
 export const postsSlice = createSlice({
   name: "posts",
   initialState,

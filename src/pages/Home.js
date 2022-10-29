@@ -7,6 +7,8 @@ import CreatePost from "../components/CreatePost";
 import Posts from "../components/Posts";
 const Home = () => {
   const dispatch = useDispatch();
+
+  // to get posts on every Change
   useEffect(() => {
     dispatch(getPosts());
   });
