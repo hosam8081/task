@@ -41,7 +41,6 @@ const initialState = {
   loading: true,
   singleLoaing:"true",
   posts: [],
-  text: "",
 };
 
 // Create Slice
