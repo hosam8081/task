@@ -10,8 +10,12 @@ const CreatePost = () => {
   // handle Submit: to add post
   const handleSubmit = (e) => {
     e.preventDefault();
-    setText(" ");
-    dispatch(addPost(text));
+    if (text.trim() !== "") {
+      setText("");
+      dispatch(addPost(text));
+    } else {
+      alert('type a word')
+    }
   };
 
   return (

@@ -11,7 +11,7 @@ const Home = () => {
   // to get posts on every Change
   useEffect(() => {
     dispatch(getPosts());
-  });
+  }, []);
 
   return (
     <Container className="hero p-5">

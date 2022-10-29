@@ -25,6 +25,17 @@ export const addPost = createAsyncThunk(
   }
 );
 
+// Delete post
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async (id, ThunkApi) => {
+    const res = await axios
+      .delete(`${url}/${id}`)
+      .catch((err) => console.log(err));
+    return id;
+  }
+);
+
 // initalState
 const initialState = {
   loading: true,
@@ -49,8 +60,7 @@ export const postsSlice = createSlice({
     },
     [getPosts.rejected]: (state) => {
       state.loading = false;
-    },
-
+    },  
     // add post
     [addPost.pending]: (state) => {
       state.loading = true;
@@ -62,9 +72,20 @@ export const postsSlice = createSlice({
     [addPost.rejected]: (state) => {
       state.loading = false;
     },
+    // delete post 
+    [deletePost.pending]: (state) => {
+      state.loading = true;
+    },
+    [deletePost.fulfilled]: (state, action) => {
+      state.posts = state.posts.filter(post => post.id !== action.payload);
+      state.loading = false;
+      console.log(action.payload)
+    },
+    [deletePost.rejected]: (state) => {
+      state.loading = false;
+    },
   },
 });
 
-export const { increment, decrement } = postsSlice.actions;
 
 export default postsSlice.reducer;
