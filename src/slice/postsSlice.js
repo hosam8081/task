@@ -12,7 +12,7 @@ export const getPosts = createAsyncThunk(
   }
 );
 
-// Post 
+// Post
 export const addPost = createAsyncThunk(
   "posts/addPost",
   async (post, ThunkApi) => {
@@ -29,25 +29,42 @@ export const addPost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
   "posts/deletePost",
   async (id, ThunkApi) => {
-    const res = await axios
-      .delete(`${url}/${id}`)
-      .catch((err) => console.log(err));
+    await axios.delete(`${url}/${id}`).catch((err) => console.log(err));
     return id;
+  }
+);
+
+// update post
+export const updatePost = createAsyncThunk(
+  "posts/updatePost",
+  async (id, ThunkApi) => {
+    const res = await axios
+      .put(`${url}/${id}`, { title: ThunkApi.getState().posts.text })
+      .catch((err) => console.log(err));
+    return res.data;
   }
 );
 
 // initalState
 const initialState = {
   loading: true,
-  singleLoaing:"true",
   posts: [],
+  text: "",
+  isEdit: null,
 };
 
 // Create Slice
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    setText: (state, action) => {
+      state.text = action.payload;
+    },
+    setIsEdit: (state, action) => {
+      state.isEdit = action.payload;
+    },
+  },
   extraReducers: {
     // get posts
     [getPosts.pending]: (state) => {
@@ -59,7 +76,7 @@ export const postsSlice = createSlice({
     },
     [getPosts.rejected]: (state) => {
       state.loading = false;
-    },  
+    },
     // add post
     [addPost.pending]: (state) => {
       state.loading = true;
@@ -71,20 +88,34 @@ export const postsSlice = createSlice({
     [addPost.rejected]: (state) => {
       state.loading = false;
     },
-    // delete post 
+    // delete post
     [deletePost.pending]: (state) => {
       state.loading = true;
     },
     [deletePost.fulfilled]: (state, action) => {
-      state.posts = state.posts.filter(post => post.id !== action.payload);
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
       state.loading = false;
-      console.log(action.payload)
     },
     [deletePost.rejected]: (state) => {
+      state.loading = false;
+    },
+    // update post
+    [updatePost.pending]: (state) => {
+      state.loading = true;
+    },
+    [updatePost.fulfilled]: (state, action) => {
+      const { title, id } = action.payload;
+      state.loading = false;
+      state.posts = state.posts.map((post) =>
+        post.id === id ? { ...post, title } : post
+      );
+    },
+    [updatePost.rejected]: (state) => {
       state.loading = false;
     },
   },
 });
 
+export const { setText, setIsEdit } = postsSlice.actions;
 
 export default postsSlice.reducer;

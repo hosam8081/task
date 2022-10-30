@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch} from "react-redux";
 import { getPosts } from "../slice/postsSlice";
 import { Container } from "react-bootstrap";
@@ -11,7 +10,7 @@ const Home = () => {
   // to get posts on every Change
   useEffect(() => {
     dispatch(getPosts());
-  }, []);
+  });
 
   return (
     <Container className="hero p-5">

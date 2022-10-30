@@ -1,19 +1,28 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addPost } from "../slice/postsSlice";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost, setIsEdit, updatePost } from "../slice/postsSlice";
 import { Button, InputGroup, Form } from "react-bootstrap";
-
+import { setText } from "../slice/postsSlice";
 const CreatePost = () => {
-  const [text, setText] = useState("");
+  const {text, isEdit} = useSelector(state => state.posts)
   const dispatch = useDispatch();
-
+  
   // handle Submit: to add post
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.trim() !== "") {
-      setText("");
+
+    // check if it post
+    if (text.trim() !== "" && isEdit == null) {
+      dispatch(setText(''))
       dispatch(addPost(text));
-    } else {
+    }
+    //check for update
+    else if (isEdit !== null) {
+      dispatch(updatePost(isEdit))
+      dispatch(setText(''))
+      dispatch(setIsEdit(null))
+    } 
+    else {
       alert('type a word')
     }
   };
@@ -29,14 +38,14 @@ const CreatePost = () => {
           <Form.Control
             placeholder="Add post"
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => dispatch(setText(e.target.value))}
           />
           <Button
             variant="success"
             id="button-addon1"
             onClick={(e) => handleSubmit(e)}
           >
-            post
+            {isEdit ? "Edit" : "Post"}
           </Button>
         </InputGroup>
       </form>
